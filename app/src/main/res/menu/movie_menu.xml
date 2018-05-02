@@ -10,7 +10,7 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="top_rated_menu"
+        android:id="@+id/top_rated_menu"
         android:title="Top rated"
         android:orderInCategory="100"
         app:showAsAction="never"/>

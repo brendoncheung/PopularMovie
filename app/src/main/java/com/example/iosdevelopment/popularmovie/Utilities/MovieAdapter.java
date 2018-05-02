@@ -37,7 +37,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
 
         Picasso.with(mContext)
-                .load(MovieDBUriUtils.buildImageUri(movieList.get(position), MovieDBUriUtils.W185))
+                .load(MovieDBUriUtils.buildImageUriFromMovie(movieList.get(position), MovieDBUriUtils.W185))
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.moviePoster);
@@ -58,4 +58,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
             moviePoster = itemView.findViewById(R.id.movie_poster_iv);
         }
     }
+
+    // TODO: Construct a setMovieData function and notify change i.e. notifyDataSetChanged(). Read documentation for clarity.
 }

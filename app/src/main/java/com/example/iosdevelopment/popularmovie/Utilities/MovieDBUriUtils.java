@@ -31,9 +31,7 @@ public final class MovieDBUriUtils {
 
     private static final String API_QUERY = "api_key";
 
-    public static Uri buildUri(String category) { // TODO: rename this to buildURi, get is a accessor method.
-
-        // TODO: separate the building part and the parsing part and test those instead.
+    public static Uri buildUri(String category) {
 
         Uri uri = Uri.parse(MOVIE_BASE_URL);
 
@@ -47,7 +45,7 @@ public final class MovieDBUriUtils {
 
     }
 
-    public static Uri buildImageUri(Movie movie, String size) {
+    public static Uri buildImageUriFromMovie(Movie movie, String size) {
 
         Uri.Builder builder = Uri.parse(IMAGE_BASE_URL).buildUpon()
                 .appendPath(size)

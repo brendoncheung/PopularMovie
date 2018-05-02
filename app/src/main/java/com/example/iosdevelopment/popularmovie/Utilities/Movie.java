@@ -22,8 +22,6 @@ public class Movie {
     private String overview;
     private Date releaseDate;
 
-    // TODO: compile a list of static variable to store api key
-
     public Movie (JSONObject json) {
 
         voteCount = json.optInt("vote_count");
