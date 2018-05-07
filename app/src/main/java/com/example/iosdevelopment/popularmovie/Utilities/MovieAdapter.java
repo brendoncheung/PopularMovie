@@ -15,12 +15,11 @@ import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
 
-    List<Movie> movieList;
-    Context mContext;
+    private List<Movie> movieList;
+    private Context mContext;
 
-    public MovieAdapter (Context context, List<Movie> movies) {
+    public MovieAdapter (Context context) {
         mContext = context;
-        movieList = movies;
     }
 
     @NonNull
@@ -45,7 +44,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+
+        if (movieList == null) {
+            return 0;
+        } else {
+
+        } return movieList.size();
+
+
     }
 
     class Viewholder extends RecyclerView.ViewHolder {
@@ -60,4 +66,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
     }
 
     // TODO: Construct a setMovieData function and notify change i.e. notifyDataSetChanged(). Read documentation for clarity.
+
+    public void swapCursor(List<Movie> movies) {
+        movieList = movies;
+        notifyDataSetChanged();
+    }
 }

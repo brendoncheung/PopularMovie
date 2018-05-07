@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initRecyclerViewWithMovies();
+
         getLoaderManager().initLoader(JSONLOADER_ID, null, this);
 
     }
@@ -68,13 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             default:
                 return super.onOptionsItemSelected(item);
-
-
-
         }
-
-
-
     }
 
     @Override
@@ -85,13 +81,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
 
-        movies.clear();
+        movies = new ArrayList<Movie>();
 
         try {
             JSONObject jsonObject = new JSONObject(data);
             JSONArray jsonResults = jsonObject.getJSONArray("results");
-
-            movies = new ArrayList<Movie>();
 
             for (int i = 0; i < jsonResults.length(); i++) {
                 movies.add(new Movie(jsonResults.optJSONObject(i)));
@@ -102,30 +96,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             e.printStackTrace();
         }
 
-        // TODO: Change the below function signature to accept movie arraylist,
+        // TODO: Change the below function signature to accept movie arraylist
 
-        initRecyclerViewWithMovies();
+        mMovieAdapter.swapCursor(movies);
+
 
     }
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
+        mMovieAdapter.swapCursor(null);
 
     }
 
 
 
     private void initRecyclerViewWithMovies() {
-
-        // TODO: From the movie arraylist, use it to pass it into the setMovieData in the adapter
-
         mRecyclerView = findViewById(R.id.movie_rc);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.hasFixedSize();
 
-        mMovieAdapter = new MovieAdapter(this,movies);
+        mMovieAdapter = new MovieAdapter(this);
         mRecyclerView.setAdapter(mMovieAdapter);
         mRecyclerView.setBackgroundColor(getResources().getColor(R.color.cardview_dark_background));
 
