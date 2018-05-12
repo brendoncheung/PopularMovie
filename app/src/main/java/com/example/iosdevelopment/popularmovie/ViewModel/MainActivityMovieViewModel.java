@@ -3,23 +3,28 @@ package com.example.iosdevelopment.popularmovie.ViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.iosdevelopment.popularmovie.Model.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.ReturnMovie;
 import com.example.iosdevelopment.popularmovie.Repository.MovieRepository;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
 
 public class MainActivityMovieViewModel extends ViewModel {
 
-    private LiveData<Movie> popular;
-    private LiveData<Movie> topRated;
-    private MovieRepository movieRepository;
+    private LiveData<ReturnMovie> movie;
+    private MovieRepository repo;
 
-    public LiveData<Movie> getMovie(String endpoints, String key) {
-        return movieRepository.getMovie(endpoints, key);
+    public LiveData<ReturnMovie> getMovie() {
+        return movie;
     }
 
-    public MainActivityMovieViewModel(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
+    public MainActivityMovieViewModel() {
+        repo = new MovieRepository();
+       movie = repo.search(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT);
     }
+
+
+
+
 }
 
 

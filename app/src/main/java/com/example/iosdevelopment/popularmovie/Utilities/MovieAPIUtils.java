@@ -1,11 +1,5 @@
 package com.example.iosdevelopment.popularmovie.Utilities;
 
-import android.net.Uri;
-
-import com.example.iosdevelopment.popularmovie.Model.Movie;
-
-import static com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils.BaseUrl.MOVIE_BASE_URL;
-
 public final class MovieAPIUtils {
 
     public static final String KEY = "6fffa22d1ba58423a952b48709479f7d";

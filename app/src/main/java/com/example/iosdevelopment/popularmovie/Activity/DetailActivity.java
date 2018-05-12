@@ -6,10 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
-import com.example.iosdevelopment.popularmovie.Model.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
 import com.example.iosdevelopment.popularmovie.R;
-import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
-import com.squareup.picasso.Picasso;
 
 // TODO: implement a coordinator view
 

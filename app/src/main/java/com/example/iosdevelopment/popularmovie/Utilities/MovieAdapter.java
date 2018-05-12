@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.iosdevelopment.popularmovie.Model.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
 import com.example.iosdevelopment.popularmovie.R;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +45,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
         Uri uri = new Uri.Builder()
                 .authority(MovieAPIUtils.BaseUrl.IMAGE_BASE_URL)
                 .appendPath(MovieAPIUtils.ImageSize.W185)
-                .appendPath(movieList.get(position).getPoster_path())
+                .appendPath(movieList.get(position).getPosterPath())
                 .build();
 
         Picasso.with(mContext)

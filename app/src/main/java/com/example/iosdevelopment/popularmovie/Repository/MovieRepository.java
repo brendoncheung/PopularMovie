@@ -4,8 +4,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.example.iosdevelopment.popularmovie.Model.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.ReturnMovie;
 import com.example.iosdevelopment.popularmovie.Services.MovieService;
+import com.example.iosdevelopment.popularmovie.Services.ServiceGenerator;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
 
 import retrofit2.Call;
@@ -16,40 +18,24 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
 
-    private static Retrofit retrofit = null;
+    private static final String TAG = MovieRepository.class.getSimpleName();
 
-    public static Retrofit getMovieRetrofitClient() {
-        if (retrofit != null) {
-            return retrofit;
-        } else {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            return retrofit;
-        }
-    }
+    public LiveData<ReturnMovie> search(String term) {
+        final MutableLiveData<ReturnMovie> data = new MutableLiveData<>();
 
-    public static LiveData<Movie> getMovie(String endpoints, String key) {
+        MovieService service = ServiceGenerator.createService(MovieService.class);
+        Call<ReturnMovie> call = service.requestMovie(term, MovieAPIUtils.KEY);
 
-        final MutableLiveData<Movie> data = new MutableLiveData<>();
-
-        Call<Movie> call = getMovieRetrofitClient().create(MovieService.class).requestMovie(endpoints, key);
-
-        call.enqueue(new Callback<Movie>() {
+        call.enqueue(new Callback<ReturnMovie>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-
+            public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {
+                Log.d(TAG, call.request().url().toString());
                 data.setValue(response.body());
-
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
-
-                Log.d("Tag", t.toString());
-                String url = call.request().url().toString();
-
+            public void onFailure(Call<ReturnMovie> call, Throwable t) {
+                Log.d(TAG, t.toString());
             }
         });
 
@@ -57,3 +43,4 @@ public class MovieRepository {
 
     }
 }
+

@@ -1,40 +1,20 @@
 package com.example.iosdevelopment.popularmovie.Activity;
 
-import android.app.LoaderManager;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
-import android.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.example.iosdevelopment.popularmovie.POJO.ReturnMovie;
 import com.example.iosdevelopment.popularmovie.R;
-import com.example.iosdevelopment.popularmovie.Services.MovieService;
-import com.example.iosdevelopment.popularmovie.Utilities.JsonLoader;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAdapter;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
-import com.example.iosdevelopment.popularmovie.Model.Movie;
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
 import com.example.iosdevelopment.popularmovie.ViewModel.MainActivityMovieViewModel;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements MovieAdapter.MovieOnClickListener {
 
@@ -49,7 +29,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         viewModel = ViewModelProviders.of(this).get(MainActivityMovieViewModel.class);
         initRecyclerViewWithMovies();
 
-        Movie movie = viewModel.getMovie(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT, MovieAPIUtils.KEY).getValue();
+        ReturnMovie movie = viewModel.getMovie().getValue();
+
     }
 
     @Override
