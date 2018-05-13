@@ -20,7 +20,7 @@ public class MovieRepository {
 
     private static final String TAG = MovieRepository.class.getSimpleName();
 
-    public LiveData<ReturnMovie> search(String term) {
+    public MutableLiveData<ReturnMovie> search(final String term) {
         final MutableLiveData<ReturnMovie> data = new MutableLiveData<>();
 
         MovieService service = ServiceGenerator.createService(MovieService.class);
@@ -31,18 +31,13 @@ public class MovieRepository {
             public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {
                 ReturnMovie movie = response.body();
                 data.setValue(movie);
-                Log.d(TAG, data.getValue().getPage().toString());
-
             }
-
             @Override
             public void onFailure(Call<ReturnMovie> call, Throwable t) {
                 Log.d(TAG, t.toString());
             }
         });
-
         return data;
-
     }
 }
 

@@ -14,22 +14,21 @@ public class MainActivityMovieViewModel extends ViewModel {
 
     private static final String TAG = MainActivityMovieViewModel.class.getSimpleName();
 
-    private LiveData<ReturnMovie> movie;
+    private MutableLiveData<ReturnMovie> movie;
     private MovieRepository repo = new MovieRepository();
+    private String search = null;
 
     public LiveData<ReturnMovie> getMovie(String searchTerm) {
 
-        if (movie == null) {
-            movie = repo.search(searchTerm);
-        }
+//        if (movie == null && searchTerm != search) {
+//            movie = repo.search(searchTerm);
+//            search = searchTerm;
+//        }
+
+        movie = repo.search(searchTerm);
 
         return movie;
     }
-
-
-
-
-
 }
 
 

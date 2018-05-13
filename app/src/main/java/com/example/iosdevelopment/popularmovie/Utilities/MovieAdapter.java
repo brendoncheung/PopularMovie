@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
+
+    private static final String TAG = MovieAdapter.class.getSimpleName();
 
     private List<Movie> movieList;
     private Context mContext;
@@ -42,11 +45,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
 
-        Uri uri = new Uri.Builder()
-                .authority(MovieAPIUtils.BaseUrl.IMAGE_BASE_URL)
+        Uri uri = Uri.parse(MovieAPIUtils.BaseUrl.IMAGE_BASE_URL).buildUpon()
                 .appendPath(MovieAPIUtils.ImageSize.W185)
-                .appendPath(movieList.get(position).getPosterPath())
+                .appendEncodedPath(movieList.get(position).getPosterPath())
                 .build();
+        Log.d(TAG, uri.toString());
 
         Picasso.with(mContext)
                 .load(uri)
