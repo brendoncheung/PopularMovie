@@ -29,8 +29,10 @@ public class MovieRepository {
         call.enqueue(new Callback<ReturnMovie>() {
             @Override
             public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {
-                Log.d(TAG, call.request().url().toString());
-                data.setValue(response.body());
+                ReturnMovie movie = response.body();
+                data.setValue(movie);
+                Log.d(TAG, data.getValue().getPage().toString());
+
             }
 
             @Override

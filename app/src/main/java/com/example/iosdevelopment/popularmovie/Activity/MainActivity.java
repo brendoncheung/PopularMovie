@@ -5,12 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.iosdevelopment.popularmovie.POJO.ReturnMovie;
 import com.example.iosdevelopment.popularmovie.R;
+import com.example.iosdevelopment.popularmovie.Repository.MovieRepository;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAdapter;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
 import com.example.iosdevelopment.popularmovie.POJO.Movie;
@@ -21,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     private RecyclerView mRecyclerView;
     private MovieAdapter mMovieAdapter;
     private MainActivityMovieViewModel viewModel;
+    private static final String TAG = MainActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         viewModel = ViewModelProviders.of(this).get(MainActivityMovieViewModel.class);
         initRecyclerViewWithMovies();
 
-        ReturnMovie movie = viewModel.getMovie().getValue();
+        ReturnMovie movie = viewModel.getMovie(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT).getValue();
 
     }
 
