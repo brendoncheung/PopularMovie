@@ -2,6 +2,7 @@ package com.example.iosdevelopment.popularmovie.Activity;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,16 +36,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
         viewModel = ViewModelProviders.of(this).get(MainActivityMovieViewModel.class);
         initRecyclerViewWithMovies();
 
-        final Observer<ReturnMovie> observer = new Observer<ReturnMovie>() {
+        viewModel.loadMovie(MovieAPIUtils.Endpoints.TOP_RATED_ENDPOINT);
+
+        viewModel.getMovie().observe(this, new Observer<ReturnMovie>() {
             @Override
             public void onChanged(@Nullable ReturnMovie returnMovie) {
                 mMovieAdapter.swapCursor(returnMovie.getResults());
             }
-        };
-
-        viewModel.getMovie(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT)
-                .observe(this, observer);
-
+        });
     }
 
     @Override
@@ -58,25 +57,20 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Bundle bundle = new Bundle();
-
         switch (item.getItemId()) {
 
             case R.id.top_rated_menu:
-                bundle.putString("option", MovieAPIUtils.Endpoints.TOP_RATED_ENDPOINT);
-                viewModel.getMovie(MovieAPIUtils.Endpoints.TOP_RATED_ENDPOINT);
+                viewModel.loadMovie(MovieAPIUtils.Endpoints.TOP_RATED_ENDPOINT);
                 return true;
 
             case R.id.most_popular_menu:
-                bundle.putString("option", MovieAPIUtils.Endpoints.POPULAR_ENDPOINT);
-                viewModel.getMovie(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT);
+                viewModel.loadMovie(MovieAPIUtils.Endpoints.POPULAR_ENDPOINT);
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     private void initRecyclerViewWithMovies() {
         mRecyclerView = findViewById(R.id.movie_rc);
@@ -91,9 +85,11 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Movi
     }
 
     @Override
-    public void onMovieClick(int position) {
+    public void onMovieClick(Movie movie) {
+        Intent intent = new Intent(this, DetailActivity.class);
 
-        // TODO: Implement detail view
+        intent.putExtra("movie", movie);
+        startActivity(intent);
     }
 }
 

@@ -1,5 +1,9 @@
 package com.example.iosdevelopment.popularmovie.Utilities;
 
+import android.net.Uri;
+
+import com.example.iosdevelopment.popularmovie.POJO.Movie;
+
 public final class MovieAPIUtils {
 
     public static final String KEY = "6fffa22d1ba58423a952b48709479f7d";
@@ -29,6 +33,17 @@ public final class MovieAPIUtils {
         public static final String W342 = "w342";
         public static final String W500 = "w500";
         public static final String W780 = "w780";
+    }
+
+    public static Uri getImageUri(Movie movie, String imageSize) {
+
+        Uri uri = Uri.parse(BaseUrl.IMAGE_BASE_URL).buildUpon()
+                .appendEncodedPath(imageSize)
+                .appendEncodedPath(movie.getPosterPath())
+                .build();
+
+        return uri;
+
     }
 }
 

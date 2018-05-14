@@ -17,27 +17,30 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
+//
+//    private static final String TAG = MovieRepository.class.getSimpleName();
+//
+//    public MutableLiveData<ReturnMovie> search(String term) {
+//        final MutableLiveData<ReturnMovie> data = new MutableLiveData<>();
+//
+//        MovieService service = ServiceGenerator.createService(MovieService.class);
+//        Call<ReturnMovie> call = service.requestMovie(term, MovieAPIUtils.KEY);
+//
+//        call.enqueue(new Callback<ReturnMovie>() {
+//            @Override
+//            public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {
+//                Log.d(TAG, response.raw().toString());
+//                ReturnMovie movie = response.body();
+//                data.setValue(movie);
+//            }
+//            @Override
+//            public void onFailure(Call<ReturnMovie> call, Throwable t) {
+//                Log.d(TAG, t.toString());
+//            }
+//        });
+//        return data;
+//    }
 
-    private static final String TAG = MovieRepository.class.getSimpleName();
-
-    public MutableLiveData<ReturnMovie> search(final String term) {
-        final MutableLiveData<ReturnMovie> data = new MutableLiveData<>();
-
-        MovieService service = ServiceGenerator.createService(MovieService.class);
-        Call<ReturnMovie> call = service.requestMovie(term, MovieAPIUtils.KEY);
-
-        call.enqueue(new Callback<ReturnMovie>() {
-            @Override
-            public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {
-                ReturnMovie movie = response.body();
-                data.setValue(movie);
-            }
-            @Override
-            public void onFailure(Call<ReturnMovie> call, Throwable t) {
-                Log.d(TAG, t.toString());
-            }
-        });
-        return data;
-    }
+    // This doesn't work, instead of returning MutableLiveData, try just returning the ReturnMovie object. However, returning from onResponse doesn't work
 }
 

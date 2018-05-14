@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import com.example.iosdevelopment.popularmovie.POJO.Movie;
 import com.example.iosdevelopment.popularmovie.R;
+import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
+import com.squareup.picasso.Picasso;
 
 // TODO: implement a coordinator view
 
@@ -27,10 +29,10 @@ public class DetailActivity extends AppCompatActivity {
 
         mMoviePoster = findViewById(R.id.detail_movie_poster_iv);
 
-//        Picasso.with(this)
-//                .load(MovieAPIUtils.buildImageUriFromMovie(movie, MovieAPIUtils.W780))
-//                .placeholder(R.drawable.ic_launcher_background)
-//                .error(R.drawable.ic_launcher_background)
-//                .into(mMoviePoster);
+        Picasso.with(this)
+                .load(MovieAPIUtils.getImageUri(movie, MovieAPIUtils.ImageSize.W780))
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+                .into(mMoviePoster);
     }
 }

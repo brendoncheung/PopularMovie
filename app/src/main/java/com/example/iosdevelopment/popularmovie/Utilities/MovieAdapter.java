@@ -30,7 +30,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
     }
 
     public interface MovieOnClickListener {
-        void onMovieClick(int position);
+        void onMovieClick(Movie movie);
     }
     @NonNull
     @Override
@@ -79,7 +79,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder>{
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    movieOnClickListener.onMovieClick(getAdapterPosition());
+                    movieOnClickListener.onMovieClick(movieList.get(getAdapterPosition()));
                 }
             });
         }
