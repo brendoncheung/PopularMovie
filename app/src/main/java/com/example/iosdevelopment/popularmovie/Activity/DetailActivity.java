@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.iosdevelopment.popularmovie.POJO.Movie;
 import com.example.iosdevelopment.popularmovie.R;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 public class DetailActivity extends AppCompatActivity {
 
     ImageView mMoviePoster;
+    TextView mTitleText, mOverview;
     Movie movie;
 
     @Override
@@ -27,7 +29,7 @@ public class DetailActivity extends AppCompatActivity {
 
         movie = intent.getParcelableExtra("movie");
 
-        mMoviePoster = findViewById(R.id.detail_movie_poster_iv);
+        initialization(movie);
 
         Picasso.with(this)
                 .load(MovieAPIUtils.getImageUri(movie, MovieAPIUtils.ImageSize.W780))
@@ -35,4 +37,19 @@ public class DetailActivity extends AppCompatActivity {
                 .error(R.drawable.ic_launcher_background)
                 .into(mMoviePoster);
     }
+
+    private void initialization(Movie movie) {
+        mMoviePoster = findViewById(R.id.main_backdrop);
+        mTitleText = findViewById(R.id.movie_title_tv);
+        mOverview = findViewById(R.id.movie_overview_tv);
+
+        mTitleText.setText(movie.getTitle());
+        mOverview.setText(movie.getOverview());
+
+
+
+
+    }
+
+
 }
