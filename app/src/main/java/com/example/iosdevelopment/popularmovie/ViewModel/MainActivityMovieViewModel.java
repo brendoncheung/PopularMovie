@@ -37,6 +37,8 @@ public class MainActivityMovieViewModel extends ViewModel {
         MovieService service = ServiceGenerator.createService(MovieService.class);
         Call<ReturnMovie> call = service.requestMovie(searchTerm, MovieAPIUtils.KEY);
 
+        Log.d(TAG, call.request().url().toString());
+
         call.enqueue(new Callback<ReturnMovie>() {
             @Override
             public void onResponse(Call<ReturnMovie> call, Response<ReturnMovie> response) {

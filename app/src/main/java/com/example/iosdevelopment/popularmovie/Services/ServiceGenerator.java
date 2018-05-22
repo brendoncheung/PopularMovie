@@ -3,6 +3,7 @@ package com.example.iosdevelopment.popularmovie.Services;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -20,15 +21,21 @@ public class ServiceGenerator {
     private static OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder();
 
+    private static HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY);
+
     public static <S> S createService(Class<S> serviceClass) {
 
 
         // Use the builder object here for further customization
         // Use the httpClient to customize for logging intercepter etc
-
+        if (!httpClient.interceptors().contains(httpLoggingInterceptor)) {
+            httpClient.addInterceptor(httpLoggingInterceptor);
             builder.client(httpClient.build());
             retrofit = builder.build();
+        }
 
         return retrofit.create(serviceClass);
     }
+
 }

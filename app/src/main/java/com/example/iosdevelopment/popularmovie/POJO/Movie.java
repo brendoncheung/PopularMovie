@@ -15,49 +15,58 @@ import java.util.List;
 
 public class Movie implements Parcelable {
 
-    /* TODO: this cannot be converted from JSON to this POJO because you are not correctly
-    mapping the reponse to the properties. You are missing total_results, total_pages and page.
-
-    */
     @SerializedName("poster_path")
     @Expose
     private String posterPath;
+
     @SerializedName("adult")
     @Expose
     private Boolean adult;
+
     @SerializedName("overview")
     @Expose
     private String overview;
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
+
     @SerializedName("genre_ids")
     @Expose
     private List<Integer> genreIds = null;
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("original_title")
     @Expose
     private String originalTitle;
+
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+
     @SerializedName("title")
     @Expose
     private String title;
+
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
+
     @SerializedName("popularity")
     @Expose
     private Double popularity;
+
     @SerializedName("vote_count")
     @Expose
     private Integer voteCount;
+
     @SerializedName("video")
     @Expose
     private Boolean video;
+
     @SerializedName("vote_average")
     @Expose
     private Double voteAverage;
@@ -197,6 +206,7 @@ public class Movie implements Parcelable {
         dest.writeInt(id);
         dest.writeInt(video? 1 : 0);
         dest.writeDouble(voteAverage);
+        dest.writeString(overview);
         dest.writeString(title);
         dest.writeString(posterPath);
         dest.writeString(originalLanguage);
@@ -212,6 +222,7 @@ public class Movie implements Parcelable {
         id = in.readInt();
         video = in.readInt() == 1;
         voteAverage = in.readDouble();
+        overview = in.readString();
         title = in.readString();
         posterPath = in.readString();
         originalLanguage = in.readString();
@@ -219,7 +230,6 @@ public class Movie implements Parcelable {
         in.readList(this.genreIds, Integer.class.getClassLoader());
         backdropPath = in.readString();
         adult = in.readInt() == 1;
-        overview = in.readString();
         releaseDate = in.readString();
     }
 

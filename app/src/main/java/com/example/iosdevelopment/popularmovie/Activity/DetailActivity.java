@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,13 +17,14 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    ImageView mMoviePoster;
-    TextView mTitleText, mOverview;
+    ImageView iv_moviePoster;
+    TextView tv_movieTitle, tv_release_date, tv_movie_duration, tv_parental_rating, tv_movie_overview, tv_movie_score;
     Movie movie;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_detail);
 
         Intent intent = getIntent();
@@ -30,26 +32,40 @@ public class DetailActivity extends AppCompatActivity {
         movie = intent.getParcelableExtra("movie");
 
         initialization(movie);
-
-        Picasso.with(this)
-                .load(MovieAPIUtils.getImageUri(movie, MovieAPIUtils.ImageSize.W780))
-                .placeholder(R.drawable.ic_launcher_background)
-                .error(R.drawable.ic_launcher_background)
-                .into(mMoviePoster);
     }
 
     private void initialization(Movie movie) {
-        mMoviePoster = findViewById(R.id.main_backdrop);
-        mTitleText = findViewById(R.id.movie_title_tv);
-        mOverview = findViewById(R.id.movie_overview_tv);
+        iv_moviePoster = findViewById(R.id.iv_movie_poster);
 
-        mTitleText.setText(movie.getTitle());
-        mOverview.setText(movie.getOverview());
+        tv_movieTitle = findViewById(R.id.tv_movie_title);
+        tv_release_date = findViewById(R.id.tv_release_date);
+        tv_movie_overview = findViewById(R.id.tv_movie_overview);
+        tv_movie_score = findViewById(R.id.tv_movie_score);
 
+        tv_movieTitle.setText(movie.getTitle());
+        tv_release_date.setText("Release date: " + movie.getReleaseDate());
+        tv_movie_overview.setText(movie.getOverview());
+        tv_movie_score.setText(String.valueOf(movie.getVoteAverage()));
 
-
+        Picasso.with(this)
+                .load(MovieAPIUtils.getMovieBackDrop(movie, MovieAPIUtils.ImageSize.W780))
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+                .into(iv_moviePoster);
 
     }
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

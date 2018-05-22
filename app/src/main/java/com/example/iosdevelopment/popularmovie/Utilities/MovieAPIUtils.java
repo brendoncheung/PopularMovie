@@ -45,6 +45,17 @@ public final class MovieAPIUtils {
         return uri;
 
     }
+
+    public static Uri getMovieBackDrop(Movie movie, String imageSize) {
+
+        Uri uri = Uri.parse(BaseUrl.IMAGE_BASE_URL).buildUpon()
+                .appendEncodedPath(imageSize)
+                .appendEncodedPath(movie.getBackdropPath())
+                .build();
+
+        return uri;
+
+    }
 }
 
 
