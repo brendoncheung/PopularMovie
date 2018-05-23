@@ -6,7 +6,7 @@ import com.example.iosdevelopment.popularmovie.POJO.Movie;
 
 public final class MovieAPIUtils {
 
-    public static final String KEY = "6fffa22d1ba58423a952b48709479f7d";
+    public static final String KEY = "INSERT_API_KEY_HERE";
 
     public static final class Query {
         public static final String API_QUERY = "api_key";

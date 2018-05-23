@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    ImageView iv_moviePoster;
-    TextView tv_movieTitle, tv_release_date, tv_movie_duration, tv_parental_rating, tv_movie_overview, tv_movie_score;
+    ImageView iv_movie_poster, iv_movie_backdrop;
+    TextView tv_movieTitle, tv_release_date, tv_movie_overview, tv_movie_score;
     Movie movie;
 
     @Override
@@ -35,12 +35,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initialization(Movie movie) {
-        iv_moviePoster = findViewById(R.id.iv_movie_poster);
+        iv_movie_poster = findViewById(R.id.iv_poster);
+        iv_movie_backdrop = findViewById(R.id.iv_backdrop);
 
-        tv_movieTitle = findViewById(R.id.tv_movie_title);
+        tv_movieTitle = findViewById(R.id.tv_title);
         tv_release_date = findViewById(R.id.tv_release_date);
-        tv_movie_overview = findViewById(R.id.tv_movie_overview);
-        tv_movie_score = findViewById(R.id.tv_movie_score);
+        tv_movie_overview = findViewById(R.id.tv_overview);
+        tv_movie_score = findViewById(R.id.tv_rating);
 
         tv_movieTitle.setText(movie.getTitle());
         tv_release_date.setText("Release date: " + movie.getReleaseDate());
@@ -51,7 +52,13 @@ public class DetailActivity extends AppCompatActivity {
                 .load(MovieAPIUtils.getMovieBackDrop(movie, MovieAPIUtils.ImageSize.W780))
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
-                .into(iv_moviePoster);
+                .into(iv_movie_backdrop);
+
+        Picasso.with(this)
+                .load(MovieAPIUtils.getImageUri(movie, MovieAPIUtils.ImageSize.W342))
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+                .into(iv_movie_poster);
 
     }
 }
