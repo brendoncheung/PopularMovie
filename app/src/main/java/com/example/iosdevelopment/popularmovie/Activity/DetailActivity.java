@@ -13,8 +13,6 @@ import com.example.iosdevelopment.popularmovie.R;
 import com.example.iosdevelopment.popularmovie.Utilities.MovieAPIUtils;
 import com.squareup.picasso.Picasso;
 
-// TODO: implement a coordinator view
-
 public class DetailActivity extends AppCompatActivity {
 
     ImageView iv_movie_poster, iv_movie_backdrop;
